@@ -94,6 +94,10 @@ li {
     border-radius: 1rem;
 }
 
+.register-form__title {
+    color: var(--color-white)
+}
+
 .register-form__input {
     width: 100%;
     padding: 0.5rem 1rem;

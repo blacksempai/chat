@@ -8,6 +8,7 @@ const scriptFile = fs.readFileSync(path.join(__dirname, 'static', 'script.js'));
 const authFile = fs.readFileSync(path.join(__dirname, 'static', 'auth.js'));
 const styleFile = fs.readFileSync(path.join(__dirname, 'static', 'style.css'));
 const registerFile = fs.readFileSync(path.join(__dirname, 'static', 'register.html'));
+const loginFile = fs.readFileSync(path.join(__dirname, 'static', 'login.html'));
 
 const server = http.createServer((req, res) => {
   if(req.method === 'GET') {
@@ -17,6 +18,7 @@ const server = http.createServer((req, res) => {
       case '/auth.js': return res.end(authFile);
       case '/style.css': return res.end(styleFile);
       case '/register': return res.end(registerFile);
+      case '/login': return res.end(loginFile);
     }
   }
   if(req.method === 'POST') {
