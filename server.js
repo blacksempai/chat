@@ -117,7 +117,6 @@ io.use((socket, next) => {
 });
 
 
-
 io.on('connection', async (socket) => {
   console.log('a user connected. id - ' + socket.id);
 
