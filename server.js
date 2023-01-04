@@ -33,9 +33,10 @@ const server = http.createServer((req, res) => {
 });
 
 function guarded(req, res) {
-  const credentionals = getCredentionals(req);
+  const credentionals = getCredentionals(req.headers?.cookie);
   if(!credentionals) {
-    res.writeHead(401, {'Location': '/register'})
+    res.writeHead(302, {'Location': '/register'});
+    return res.end();
   }
   if(req.method === 'GET') {
     switch(req.url) {
@@ -47,8 +48,8 @@ function guarded(req, res) {
   return res.end('Error 404');
 }
 
-function getCredentionals(req) {
-  const cookies = cookie.parse(req.headers?.cookie || '');
+function getCredentionals(c = '') {
+  const cookies = cookie.parse(c);
   const token = cookies?.token;
   if(!token || !validAuthTokens.includes(token)) return null;
   const [user_id, login] = token.split('.');
@@ -107,7 +108,6 @@ const io = new Server(server);
 
 io.on('connection', async (socket) => {
   console.log('a user connected. id - ' + socket.id);
-
 
   let userNickname = 'admin';
   let messages = await db.getMessages();
